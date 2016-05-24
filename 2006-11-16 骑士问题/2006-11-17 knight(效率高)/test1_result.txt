@@ -1,0 +1,8 @@
+To get from e4 to e2 takes 2 knight moves.
+To get from b2 to a1 takes 4 knight moves.
+To get from c3 to b2 takes 2 knight moves.
+To get from h8 to a1 takes 6 knight moves.
+To get from h7 to a1 takes 5 knight moves.
+To get from a1 to h8 takes 6 knight moves.
+To get from c3 to b1 takes 1 knight moves.
+To get from f6 to f6 takes 0 knight moves.
