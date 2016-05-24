@@ -1,3 +1,4 @@
+#include <string.h>
 #include <iostream>
 using namespace std;
 
@@ -21,25 +22,49 @@ bool isMatch(const char *s, const char *p)
     //if next char is not "*": must match current character
     if (*(p + 1) != '*')
     {
-        return ((*p == *s) || (*p == '.' && *s != '\0')) && isMatch(s + 1, p + 1);
+        return ((*p == *s) || (*p == '.' && *s != '\0')) && isMatch(s+1, p+1);
     }
 
     // if next char is "*"
     while ((*p == *s) || (*p == '.' && *s != '\0'))
     {
-        if (isMatch(s, p + 2))
+        if (isMatch(s, p+2))
             return true;
         s++;
     }
 
-    return isMatch(s, p + 2);
+    return isMatch(s, p+2);
+}
+
+bool isMatch2(const char *s, const char *p)
+{
+    int slen = strlen(s);
+    int plen = strlen(p);
+
+    if (plen == 0)
+        return slen == 0;
+
+    if (plen == 1)
+        return slen == 1 && (p[0] == '.' || p[0] == s[0]);
+
+    if (p[1] == '*')
+    {
+        if (isMatch2(s, p+2))
+            return true;
+
+        return slen > 0 && (p[0] == '.' || s[0] == p[0]) && isMatch2(s+1, p);
+    }
+    else
+    {
+        return slen > 0 && (p[0] == '.' || s[0] == p[0]) && isMatch2(s+1, p+1);
+    }
 }
 
 void test_match(const char *s, const char *p)
 {
     std::cout << "source : " << s << std::endl;
     std::cout << "pattern: " << p << std::endl;
-    bool match = isMatch(s, p);
+    bool match = isMatch2(s, p);
     if (match)
         std::cout << "result : matched" << std::endl;
     else
